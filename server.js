@@ -70,7 +70,7 @@ app.post('/todos', function (req, res) {
 	if (!_.isBoolean(body.completed) || 
 		!_.isString(body.description) || 
 		body.description.trim().length === 0) {
-		return res.status(400).send();
+		return res.status(404).send();
 	}
 
 	body.id = todoNextId++;
@@ -85,7 +85,7 @@ app.delete('/todos/:id', function(req,res) {
 	var matchedtodo = _.findWhere(todos, {id: todoid});
 
 	if(!matchedtodo) {
-		return res.status(400).json({"error":"No todo found with this id."});
+		return res.status(404).json({"error":"No todo found with this id."});
 	} else {
 		todos = _.without(todos,matchedtodo);
 		res.json(matchedtodo);
