@@ -80,6 +80,20 @@ app.post('/todos', function (req, res) {
 	
 });
 
+app.delete('/todos/:id', function(req,res) {
+	var todoid = parseInt(req.params.id, 10);
+	var matchedtodo = _.findWhere(todos, {id: todoid});
+
+	if(!matchedtodo) {
+		return res.status(400).json({"error":"No todo found with this id."});
+	} else {
+		todos = _.without(todos,matchedtodo);
+		res.json(matchedtodo);
+	}
+
+	
+});
+
 app.listen(PORT, function () {
 	console.log("Express server started on " + PORT + " !!!");
 });
